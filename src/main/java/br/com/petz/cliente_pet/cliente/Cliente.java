@@ -1,7 +1,6 @@
 package br.com.petz.cliente_pet.cliente;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -19,6 +18,8 @@ import java.util.UUID;
 @Entity
 public class Cliente {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false, unique = true, nullable = false)
     private UUID idCliente;
     @NotBlank
     private String nomeCompleto;
@@ -42,7 +43,6 @@ public class Cliente {
 
     public Cliente(String nomeCompleto, String email, String celular, String telefone, Sexo sexo,
                    LocalDate dataNascimento, String cpf, Boolean aceitaTermos) {
-        this.idCliente = UUID.randomUUID();
         this.nomeCompleto = nomeCompleto;
         this.email = email;
         this.celular = celular;
