@@ -29,7 +29,6 @@ public class Cliente {
     @NotBlank
     private String celular;
     private String telefone;
-    @NotBlank
     private Sexo sexo;
     @NotNull
     private LocalDate dataNascimento;
