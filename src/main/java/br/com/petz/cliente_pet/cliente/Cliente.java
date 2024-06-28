@@ -41,11 +41,6 @@ public class Cliente {
     private LocalDateTime dataHoraDoCadastro;
     private LocalDateTime dataHoraDaUltimaAlteracao;
 
-    public Cliente(String nomeCompleto, String email, String celular, String telefone, Sexo sexo,
-                   LocalDate dataNascimento, String cpf, Boolean aceitaTermos) {
-
-    }
-
     public Cliente(ClienteRequest clienteRequest) {
         this.nomeCompleto = clienteRequest.getNomeCompleto();
         this.email = clienteRequest.getEmail();

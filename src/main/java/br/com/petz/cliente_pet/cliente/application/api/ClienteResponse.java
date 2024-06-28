@@ -8,7 +8,6 @@ import java.util.UUID;
 @Value
 @Builder
 public class ClienteResponse {
-
     private UUID idCliente;
 }
 
