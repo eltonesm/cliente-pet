@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @Log4j2
 @RequiredArgsConstructor
-public class ClienteController implements ClienteApi{
+public class ClienteController implements ClienteApi {
 
     private final ClienteService clienteService;
 
@@ -25,7 +25,7 @@ public class ClienteController implements ClienteApi{
     @Override
     public List<ClienteListResponse> getTodosClientes() {
         log.info("[Inicia] ClienteController - getTodosClientes");
-        List<ClienteListResponse> clientes= clienteService.buscaTodosClientes();
+        List<ClienteListResponse> clientes = clienteService.buscaTodosClientes();
         log.info("[Finaliza] ClienteController - getTodosClientes");
         return clientes;
     }
