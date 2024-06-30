@@ -1,6 +1,6 @@
 package br.com.petz.cliente_pet.cliente.application.service;
 
-import br.com.petz.cliente_pet.cliente.Cliente;
+import br.com.petz.cliente_pet.cliente.domain.Cliente;
 import br.com.petz.cliente_pet.cliente.application.api.ClienteRequest;
 import br.com.petz.cliente_pet.cliente.application.api.ClienteResponse;
 import br.com.petz.cliente_pet.cliente.application.repository.ClienteRepository;

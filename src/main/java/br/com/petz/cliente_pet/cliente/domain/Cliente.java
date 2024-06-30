@@ -1,4 +1,4 @@
-package br.com.petz.cliente_pet.cliente;
+package br.com.petz.cliente_pet.cliente.domain;
 
 import br.com.petz.cliente_pet.cliente.application.api.ClienteRequest;
 import jakarta.persistence.*;
