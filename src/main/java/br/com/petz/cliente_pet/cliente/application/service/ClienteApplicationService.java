@@ -1,5 +1,6 @@
 package br.com.petz.cliente_pet.cliente.application.service;
 
+import br.com.petz.cliente_pet.cliente.application.api.ClienteDetalhadoResponse;
 import br.com.petz.cliente_pet.cliente.application.api.ClienteListResponse;
 import br.com.petz.cliente_pet.cliente.application.api.ClienteRequest;
 import br.com.petz.cliente_pet.cliente.application.api.ClienteResponse;
@@ -10,6 +11,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Log4j2
@@ -34,5 +36,12 @@ public class ClienteApplicationService implements ClienteService {
         List<Cliente> clientes = clienteRepository.buscaTodosClientes();
         log.info("[Finaliza] ClienteApplicationService - buscaTodosClientes");
         return ClienteListResponse.converte(clientes);
+    }
+
+    @Override
+    public ClienteDetalhadoResponse buscaClienteAtravesId(UUID idCliente) {
+        log.info("[Inicia] ClienteApplicationService - buscaClienteAtravesId");
+        log.info("[Finaliza] ClienteApplicationService - buscaClienteAtravesId");
+        return null;
     }
 }
