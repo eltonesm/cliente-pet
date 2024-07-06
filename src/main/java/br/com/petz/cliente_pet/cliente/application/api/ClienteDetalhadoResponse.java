@@ -31,4 +31,3 @@ public class ClienteDetalhadoResponse {
         this.dataHoraDoCadastro = cliente.getDataHoraDoCadastro();
     }
 }
-
