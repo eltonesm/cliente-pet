@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/v1/cliente")
-public interface ClienteApi{
+public interface ClienteApi {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
@@ -26,4 +26,9 @@ public interface ClienteApi{
     @DeleteMapping(value = "/{idCliente}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     void deletaClienteAtravesId(@PathVariable UUID idCliente);
+
+    @PatchMapping(value = "/{idCliente}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    void patchAlteradoCliente(@PathVariable UUID idCliente,
+                              @Valid @RequestBody ClienteAlteracaoRequest clienteAlteracaoRequest);
 }
