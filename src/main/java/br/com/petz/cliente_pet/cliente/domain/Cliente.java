@@ -21,7 +21,7 @@ import java.util.UUID;
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(columnDefinition = "UUID", name = "id", updatable = false, unique = true, nullable = false)
+    @Column(columnDefinition = "UUID", name = "idCliente", updatable = false, unique = true, nullable = false)
     private UUID idCliente;
     @NotBlank
     private String nomeCompleto;
@@ -32,6 +32,7 @@ public class Cliente {
     @NotBlank
     private String celular;
     private String telefone;
+    @Enumerated(EnumType.STRING)
     private Sexo sexo;
     @NotNull
     private LocalDate dataNascimento;
