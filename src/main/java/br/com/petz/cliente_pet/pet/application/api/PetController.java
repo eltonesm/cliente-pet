@@ -1,11 +1,11 @@
 package br.com.petz.cliente_pet.pet.application.api;
 
 import br.com.petz.cliente_pet.pet.application.service.PetService;
-import br.com.petz.cliente_pet.pet.domain.Pet;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -17,10 +17,18 @@ public class PetController implements PetApi {
 
     @Override
     public PetResponse postPet(UUID idCliente, PetRequest petRequest) {
-       log.info("[start]PetController - postPet");
-       log.info("[idCliente]{}", idCliente);
-       PetResponse pet = petSetvice.criaPet(idCliente, petRequest);
-       log.info("[Finish]PetController - postPet");
+        log.info("[start]PetController - postPet");
+        log.info("[idCliente]{}", idCliente);
+        PetResponse pet = petSetvice.criaPet(idCliente, petRequest);
+        log.info("[Finish]PetController - postPet");
         return pet;
+    }
+
+    @Override
+    public List<PetClienteListResponse> getPetsdoClienteComId(UUID idCliente) {
+        log.info("[Start]PetController - getPetsdoClienteComId");
+        log.info("[idCliente]{}", idCliente);
+        log.info("[Finish]PetController - getPetsdoClienteComId");
+        return List.of();
     }
 }
