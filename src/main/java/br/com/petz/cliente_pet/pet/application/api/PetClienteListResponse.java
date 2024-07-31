@@ -7,7 +7,7 @@ import java.util.List;
 
 @Value
 public class PetClienteListResponse {
-    
+
     public static List<PetClienteListResponse> converte(List<Pet> petsDoCliente) {
         return null;
     }
