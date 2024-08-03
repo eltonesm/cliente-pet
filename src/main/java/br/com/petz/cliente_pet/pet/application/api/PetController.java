@@ -16,10 +16,10 @@ public class PetController implements PetApi {
     private final PetService petSetvice;
 
     @Override
-    public PetResponse postPet(UUID idCliente, PetRequest petRequest) {
+    public petResponse postPet(UUID idCliente, PetRequest petRequest) {
         log.info("[start]PetController - postPet");
         log.info("[idCliente]{}", idCliente);
-        PetResponse pet = petSetvice.criaPet(idCliente, petRequest);
+        petResponse pet = petSetvice.criaPet(idCliente, petRequest);
         log.info("[Finish]PetController - postPet");
         return pet;
     }
@@ -51,10 +51,9 @@ public class PetController implements PetApi {
     }
 
     @Override
-    public PetResponse patchPet(UUID idCliente, UUID idPet, PetAlteracaoRequest petAlteracaoRequest) {
+    public void patchPet(UUID idCliente, UUID idPet, PetAlteracaoRequest petAlteracaoRequest) {
         log.info("[Start]PetController - patchPet");
         log.info("[idCliente]{} - [idPet]{}", idCliente, idPet);
         log.info("[Finish]PetController - patchPet");
-        return null;
     }
 }

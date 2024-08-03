@@ -12,7 +12,7 @@ import java.util.UUID;
 public interface PetApi {
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    PetResponse postPet(@PathVariable UUID idCliente, @Valid @RequestBody PetRequest petRequest);
+    petResponse postPet(@PathVariable UUID idCliente, @Valid @RequestBody PetRequest petRequest);
 
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
@@ -28,6 +28,6 @@ public interface PetApi {
 
     @PatchMapping(value = "/{idPet}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    PetResponse patchPet(@PathVariable UUID idCliente, @PathVariable UUID idPet,
+    void patchPet(@PathVariable UUID idCliente, @PathVariable UUID idPet,
                          @Valid @RequestBody PetAlteracaoRequest petAlteracaoRequest);
 }

@@ -4,7 +4,7 @@ import br.com.petz.cliente_pet.cliente.application.service.ClienteService;
 import br.com.petz.cliente_pet.pet.application.api.PetClienteDetalheResponse;
 import br.com.petz.cliente_pet.pet.application.api.PetClienteListResponse;
 import br.com.petz.cliente_pet.pet.application.api.PetRequest;
-import br.com.petz.cliente_pet.pet.application.api.PetResponse;
+import br.com.petz.cliente_pet.pet.application.api.petResponse;
 import br.com.petz.cliente_pet.pet.application.repository.PetRepository;
 import br.com.petz.cliente_pet.pet.domain.Pet;
 import lombok.RequiredArgsConstructor;
@@ -22,12 +22,12 @@ public class PetApplicationService implements PetService {
     private final PetRepository petRepository;
 
     @Override
-    public PetResponse criaPet(UUID idCliente, PetRequest petRequest) {
+    public petResponse criaPet(UUID idCliente, PetRequest petRequest) {
         log.info("[Start]PetApplicationService - criaPet");
         clienteService.buscaClienteAtravesId(idCliente);
         Pet pet = petRepository.salvaPet(new Pet(idCliente, petRequest));
         log.info("[Finish]PetApplicationService - criaPet");
-        return new PetResponse(pet.getIdPet());
+        return new petResponse(pet.getIdPet());
     }
 
     @Override

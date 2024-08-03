@@ -5,6 +5,6 @@ import lombok.Value;
 import java.util.UUID;
 
 @Value
-public class PetResponse {
+public class petResponse {
     private UUID idPet;
 }
