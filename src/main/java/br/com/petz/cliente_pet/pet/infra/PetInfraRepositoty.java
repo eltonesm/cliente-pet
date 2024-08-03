@@ -42,4 +42,11 @@ public class PetInfraRepositoty implements PetRepository {
         log.info("[Finish]PetInfraRepositoty - buscaPetPeloId");
         return pet;
     }
+
+    @Override
+    public void deletaPet(Pet pet) {
+        log.info("[Start]PetInfraRepositoty - deletaPet");
+        petSpringDataJPARepository.delete(pet);
+        log.info("[Finish]PetInfraRepositoty - deletaPet");
+    }
 }
