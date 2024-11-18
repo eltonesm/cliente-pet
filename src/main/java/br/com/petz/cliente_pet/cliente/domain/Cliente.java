@@ -3,7 +3,6 @@ package br.com.petz.cliente_pet.cliente.domain;
 import br.com.petz.cliente_pet.cliente.application.api.ClienteAlteracaoRequest;
 import br.com.petz.cliente_pet.cliente.application.api.ClienteRequest;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -25,13 +24,6 @@ public class Cliente {
     private UUID idCliente;
     @NotBlank
     private String nomeCompleto;
-    @NotBlank
-    @Email
-    @Column(unique = true)
-    private String email;
-    @NotBlank
-    private String celular;
-    private String telefone;
     @Enumerated(EnumType.STRING)
     private Sexo sexo;
     @NotNull
@@ -45,25 +37,24 @@ public class Cliente {
     private LocalDateTime dataHoraDoCadastro;
     private LocalDateTime dataHoraDaUltimaAlteracao;
 
+    @Embedded
+    private ClienteContato contato;
+
     public Cliente(ClienteRequest clienteRequest) {
         this.nomeCompleto = clienteRequest.getNomeCompleto();
-        this.email = clienteRequest.getEmail();
-        this.celular = clienteRequest.getCelular();
-        this.telefone = clienteRequest.getTelefone();
         this.sexo = clienteRequest.getSexo();
         this.dataNascimento = clienteRequest.getDataNascimento();
         this.cpf = clienteRequest.getCpf();
         this.aceitaTermos = clienteRequest.getAceitaTermos();
         this.dataHoraDoCadastro = LocalDateTime.now();
+        this.contato = new ClienteContato(clienteRequest);
     }
 
     public void altera(ClienteAlteracaoRequest clienteAlteracaoRequest) {
         this.nomeCompleto = clienteAlteracaoRequest.getNomeCompleto();
-        this.celular = clienteAlteracaoRequest.getCelular();
-        this.telefone = clienteAlteracaoRequest.getTelefone();
-        this.sexo = clienteAlteracaoRequest.getSexo();
         this.dataNascimento = clienteAlteracaoRequest.getDataNascimento();
         this.aceitaTermos = clienteAlteracaoRequest.getAceitaTermos();
         this.dataHoraDaUltimaAlteracao = LocalDateTime.now();
+        this.contato = new ClienteContato(clienteAlteracaoRequest);
     }
 }
