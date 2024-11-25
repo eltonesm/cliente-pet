@@ -1,41 +1,27 @@
 package br.com.petz.cliente_pet.config;
 
-import feign.Client;
-import feign.Logger;
 import feign.Request;
-import feign.slf4j.Slf4jLogger;
-import org.apache.http.conn.ssl.NoopHostnameVerifier;
-import org.apache.http.conn.ssl.TrustStrategy;
-import org.apache.http.ssl.SSLContexts;
+import feign.RequestInterceptor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocketFactory;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 
 @Configuration
-@EnableFeignClients(basePackages = {"br.com.petz.cliente_pet"})
-@EnableDiscoveryClient
+@EnableFeignClients(basePackages = "br.com.petz.cliente_pet.comunicacao.infra.comunicacao")
+@PropertySource("classpath:application.properties")
 public class FeignConfig {
+
     @Value("${feign.connectTimeout:30000}")
     private int connectTimeout;
-    @Value("${feign.readTimeOut:300000}")
+
+    @Value("${feign.readTimeout:300000}")
     private int readTimeout;
 
-    @Bean
-    Logger.Level feignLoggerLevel() {
-        return Logger.Level.FULL;
-    }
-
-    @Bean
-    Logger logger() {
-        return new Slf4jLogger(FeignConfig.class);
-    }
+    @Value("${zapi.client-token}")
+    private String clientToken;
 
     @Bean
     public Request.Options options() {
@@ -43,28 +29,15 @@ public class FeignConfig {
     }
 
     @Bean
-    public FeignErrorDecoder errorDecoder() {
-        return new FeignErrorDecoder();
+    public RequestInterceptor contentTypeInterceptor() {
+        return template -> {
+            template.header("Content-Type", "application/json");
+            template.header("Client-Token", clientToken); // Adiciona o token de segurança
+        };
     }
 
     @Bean
-    public Client feignClient() {
-        Client trustSSLSockets = new Client.Default(getSSLSocketFactory(), new NoopHostnameVerifier());
-        return trustSSLSockets;
-    }
-
-    private SSLSocketFactory getSSLSocketFactory() {
-        try {
-            TrustStrategy acceptingTrustStrategy = new TrustStrategy() {
-                @Override
-                public boolean isTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-                    return true;
-                }
-            };
-            SSLContext sslContext = SSLContexts.custom().loadTrustMaterial(null, acceptingTrustStrategy).build();
-            return sslContext.getSocketFactory();
-        } catch (Exception exception) {
-            throw new RuntimeException(exception);
-        }
+    public FeignErrorDecoder errorDecoder() {
+        return new FeignErrorDecoder();
     }
 }

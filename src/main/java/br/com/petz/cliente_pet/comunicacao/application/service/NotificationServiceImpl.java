@@ -2,42 +2,49 @@ package br.com.petz.cliente_pet.comunicacao.application.service;
 
 import br.com.petz.cliente_pet.comunicacao.application.api.ZApiRequest;
 import br.com.petz.cliente_pet.comunicacao.infra.comunicacao.ZApiClient;
-import feign.FeignException;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-@Log4j2
+@Slf4j
 public class NotificationServiceImpl implements NotificationService {
 
     private final ZApiClient zApiClient;
 
     @Override
-    public void sendCongratulations(String phone, String studentName) {
-        String message = String.format("Parabéns, %s! Você está indo muito bem. Continue assim!", studentName);
-        log.info("Enviando mensagem para o número: {} com a mensagem: {}", phone, message);
-        ZApiRequest request = new ZApiRequest(phone, message);
-        log.debug("Payload enviado: {}", request);
-        sendMessage(request);
-    }
-
-    private void sendMessage(ZApiRequest request) {
-        try {
-            zApiClient.sendText(request);
-            log.info("Mensagem enviada com sucesso para o número: {}", request.getPhone());
-        } catch (FeignException e) {
-            log.error("Erro ao enviar mensagem: {}", e.contentUTF8());
-            throw e;
-        }
-
+    public void sendCongratulations(String phone) {
+        String message = " Parabéns! Você está conquistando grandes coisas! Continue assim! ";
+        sendMessage(phone, message);
     }
 
     @Override
-    public void sendMotivation(String phone, String studentName) {
-        String message = String.format("Olá, Wakander! Não desista, você está mais perto de alcançar seus objetivos!", studentName);
-        ZApiRequest request = new ZApiRequest(phone, message);
-        zApiClient.sendText(request);
+    public void sendMotivation(String phone) {
+        String message = "Não desista! Cada passo te leva mais perto do sucesso. Você consegue!";
+        sendMessage(phone, message);
+    }
+
+    private void sendMessage(String phone, String message) {
+        // Sanitiza o número de telefone
+        String sanitizedPhone = sanitizePhoneNumber(phone);
+
+        // Cria o objeto de requisição
+        ZApiRequest request = new ZApiRequest(sanitizedPhone, message);
+
+        try {
+            log.info("Enviando requisição para Z-API: {}", request);
+            zApiClient.sendText(request); // Chama o método Feign
+            log.info("Mensagem enviada com sucesso para o telefone: {}", sanitizedPhone);
+        } catch (Exception e) {
+            log.error("Erro ao enviar mensagem para o telefone {}: {}", sanitizedPhone, e.getMessage());
+            throw new RuntimeException("Falha ao enviar mensagem", e);
+        }
+    }
+
+    private String sanitizePhoneNumber(String phone) {
+        // Remove espaços, caracteres especiais e valida o formato
+        return phone.replaceAll("[^\\d]", "");
     }
 }
+

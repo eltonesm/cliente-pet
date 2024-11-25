@@ -16,18 +16,14 @@ public class NotificationController {
     private final NotificationService notificationService;
 
     @PostMapping("/congratulations")
-    public ResponseEntity<String> sendCongratulations(
-            @RequestParam String phone,
-            @RequestParam String studentName) {
-        notificationService.sendCongratulations(phone, studentName);
+    public ResponseEntity<String> sendCongratulations(@RequestParam String phone) {
+        notificationService.sendCongratulations(phone);
         return ResponseEntity.ok("Mensagem de parabéns enviada com sucesso!");
     }
 
     @PostMapping("/motivation")
-    public ResponseEntity<String> sendMotivation(
-            @RequestParam String phone,
-            @RequestParam String studentName) {
-        notificationService.sendMotivation(phone, studentName);
+    public ResponseEntity<String> sendMotivation(@RequestParam String phone) {
+        notificationService.sendMotivation(phone);
         return ResponseEntity.ok("Mensagem de motivação enviada com sucesso!");
     }
 }

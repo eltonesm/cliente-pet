@@ -5,12 +5,11 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 @FeignClient(
         name = "zApiClient",
-        url = "https://api.z-api.io/instances/3D8B37B6E9D570D09CC482FC59B53879/token/5A894E1545EB74A7FC0DAB27/send-text"
-)
+        url = "${zapi.url}/instances/${zapi.instance-id}/token/${zapi.instance-token}")
 public interface ZApiClient {
+
     @PostMapping("/send-text")
-    void sendText(@RequestBody ZApiRequest request);
+    void sendText(@RequestBody ZApiRequest request); // Nenhum modelo de resposta
 }
