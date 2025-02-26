@@ -16,14 +16,6 @@ spring:
       connectionTimeout: 30000
       idleTimeout: 30000
       maxLifetime: 1000000
-
-  jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    show-sql: false
-    hibernate:
-      ddl-auto: update
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      properties:
-        hibernate:
-          default_schema: pet
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
